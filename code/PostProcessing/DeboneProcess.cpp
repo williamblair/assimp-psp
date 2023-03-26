@@ -129,7 +129,7 @@ void DeboneProcess::Execute( aiScene* pScene)
 
             // mesh was split
             if(!newMeshes.empty())  {
-                unsigned int out = 0, in = srcMesh->mNumBones;
+                unsigned int out = 0/*, in = srcMesh->mNumBones*/;
 
                 // store new meshes and indices of the new meshes
                 for(unsigned int b=0;b<newMeshes.size();b++)    {

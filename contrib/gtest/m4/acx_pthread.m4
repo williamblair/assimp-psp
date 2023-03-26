@@ -256,7 +256,8 @@ if test "x$acx_pthread_ok" = xyes; then
 	# FIXME: -fPIC is required for -shared on many architectures,
 	# so we specify it here, but the right way would probably be to
 	# properly detect whether it is actually required.
-	CFLAGS="-shared -fPIC -Wl,-z,defs $CFLAGS $PTHREAD_CFLAGS"
+	#CFLAGS="-shared -fPIC -Wl,-z,defs $CFLAGS $PTHREAD_CFLAGS"
+	CFLAGS="-shared -Wl,-z,defs $CFLAGS $PTHREAD_CFLAGS"
 	LIBS="$PTHREAD_LIBS $LIBS"
 	CC="$PTHREAD_CC"
 	

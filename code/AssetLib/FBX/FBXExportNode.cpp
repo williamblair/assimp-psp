@@ -471,7 +471,7 @@ void FBX::Node::WritePropertyNodeAscii(
     int count = 0;
     for (size_t i = 0; i < v.size(); ++i) {
         if (i > 0) { s.PutChar(','); }
-        int len = ai_snprintf(buffer, sizeof(buffer), "%d", v[i]);
+        int len = ai_snprintf(buffer, sizeof(buffer), "%ld", v[i]);
         count += len;
         if (count > 2048) { s.PutChar('\n'); count = 0; }
         if (len < 0 || len > 31) {

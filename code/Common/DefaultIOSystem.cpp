@@ -160,6 +160,7 @@ bool IOSystem::ComparePaths(const char *one, const char *second) const {
 inline static std::string MakeAbsolutePath(const char *in) {
     ai_assert(in);
     std::string out;
+#if 0
 #ifdef _WIN32
     wchar_t *ret = ::_wfullpath(nullptr, Utf8ToWide(in).c_str(), 0);
     if (ret) {
@@ -179,6 +180,8 @@ inline static std::string MakeAbsolutePath(const char *in) {
         ASSIMP_LOG_WARN("Invalid path: ", std::string(in));
         out = in;
     }
+#endif
+    out = in;
     return out;
 }
 

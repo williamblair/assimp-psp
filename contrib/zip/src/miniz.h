@@ -4494,7 +4494,8 @@ static mz_bool mz_zip_set_file_times(const char *pFilename, time_t access_time,
   t.actime = access_time;
   t.modtime = modified_time;
 
-  return !utime(pFilename, &t);
+  //return !utime(pFilename, &t);
+  return !0; // utime returns 0 on success
 }
 #endif /* #ifndef MINIZ_NO_STDIO */
 #endif /* #ifndef MINIZ_NO_TIME */

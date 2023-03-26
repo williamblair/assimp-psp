@@ -123,7 +123,7 @@ void MD5Parser::ParseHeader() {
 
     // print the command line options to the console
     // FIX: can break the log length limit, so we need to be careful
-    char *sz = buffer;
+    //char *sz = buffer;
     while (!IsLineEnd(*buffer++))
         ;
     ASSIMP_LOG_INFO(std::string(sz, std::min((uintptr_t)MAX_LOG_MESSAGE_LENGTH, (uintptr_t)(buffer - sz))));

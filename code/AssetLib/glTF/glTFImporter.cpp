@@ -126,6 +126,7 @@ void glTFImporter::ImportMaterials(glTF::Asset &r) {
     mScene->mNumMaterials = unsigned(r.materials.Size());
     mScene->mMaterials = new aiMaterial *[mScene->mNumMaterials];
 
+    printf("Material import\n");
     for (unsigned int i = 0; i < mScene->mNumMaterials; ++i) {
         aiMaterial *aimat = mScene->mMaterials[i] = new aiMaterial();
 
@@ -196,6 +197,7 @@ static inline bool CheckValidFacesIndices(aiFace *faces, unsigned nFaces, unsign
 void glTFImporter::ImportMeshes(glTF::Asset &r) {
     std::vector<aiMesh *> meshes;
 
+    printf("glTF import meshes\n");
     unsigned int k = 0;
     meshOffsets.clear();
 
@@ -451,10 +453,12 @@ void glTFImporter::ImportMeshes(glTF::Asset &r) {
 
     meshOffsets.push_back(k);
 
+    printf("glTF import meshes copy vector\n");
     CopyVector(meshes, mScene->mMeshes, mScene->mNumMeshes);
 }
 
 void glTFImporter::ImportCameras(glTF::Asset &r) {
+    printf("glTF import cameras\n");
     if (!r.cameras.Size()) {
         return;
     }
@@ -484,6 +488,7 @@ void glTFImporter::ImportCameras(glTF::Asset &r) {
 }
 
 void glTFImporter::ImportLights(glTF::Asset &r) {
+    printf("glTF import lights\n");
     if (!r.lights.Size()) return;
 
     mScene->mNumLights = r.lights.Size();
@@ -528,6 +533,7 @@ void glTFImporter::ImportLights(glTF::Asset &r) {
 aiNode *ImportNode(aiScene *pScene, glTF::Asset &r, std::vector<unsigned int> &meshOffsets, glTF::Ref<glTF::Node> &ptr) {
     Node &node = *ptr;
 
+    printf("glTF import node\n");
     aiNode *ainode = new aiNode(node.id);
 
     if (!node.children.empty()) {
@@ -599,6 +605,7 @@ aiNode *ImportNode(aiScene *pScene, glTF::Asset &r, std::vector<unsigned int> &m
 }
 
 void glTFImporter::ImportNodes(glTF::Asset &r) {
+    printf("glTF import nodes\n");
     if (!r.scene) return;
 
     std::vector<Ref<Node>> rootNodes = r.scene->nodes;
@@ -624,6 +631,7 @@ void glTFImporter::ImportNodes(glTF::Asset &r) {
 }
 
 void glTFImporter::ImportEmbeddedTextures(glTF::Asset &r) {
+    printf("glTF import embedded textures\n");
     embeddedTexIdxs.resize(r.images.Size(), -1);
 
     int numEmbeddedTexs = 0;
@@ -670,6 +678,7 @@ void glTFImporter::ImportEmbeddedTextures(glTF::Asset &r) {
 }
 
 void glTFImporter::ImportCommonMetadata(glTF::Asset &a) {
+    printf("glTF import common metadata\n");
     ai_assert(mScene->mMetaData == nullptr);
     const bool hasVersion = !a.asset.version.empty();
     const bool hasGenerator = !a.asset.generator.empty();
@@ -689,6 +698,7 @@ void glTFImporter::ImportCommonMetadata(glTF::Asset &a) {
 }
 
 void glTFImporter::InternReadFile(const std::string &pFile, aiScene *pScene, IOSystem *pIOHandler) {
+    printf("glTF intern read file\n");
     // clean all member arrays
     meshOffsets.clear();
     embeddedTexIdxs.clear();
@@ -717,6 +727,7 @@ void glTFImporter::InternReadFile(const std::string &pFile, aiScene *pScene, IOS
     if (pScene->mNumMeshes == 0) {
         pScene->mFlags |= AI_SCENE_FLAGS_INCOMPLETE;
     }
+    printf("glTF intern read file exit\n");
 }
 
 #endif // ASSIMP_BUILD_NO_GLTF_IMPORTER

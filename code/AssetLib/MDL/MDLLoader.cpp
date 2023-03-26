@@ -954,7 +954,7 @@ void MDLImporter::CalcAbsBoneMatrices_3DGS_MDL7(MDL::IntBone_MDL7 **apcOutBones)
                 if (AI_MDL7_BONE_STRUCT_SIZE__NAME_IS_NOT_THERE == pcHeader->bone_stc_size) {
                     // no real name for our poor bone is specified :-(
                     pcOutBone->mName.length = ai_snprintf(pcOutBone->mName.data, MAXLEN,
-                            "UnnamedBone_%i", iBone);
+                            "UnnamedBone_%lu", iBone);
                 } else {
                     // Make sure we won't run over the buffer's end if there is no
                     // terminal 0 character (however the documentation says there

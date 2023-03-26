@@ -285,6 +285,8 @@ inline Logger::LogSeverity Logger::getLogSeverity() const {
 } // Namespace Assimp
 
 // ------------------------------------------------------------------------------------------------
+// BJ test
+#if 0
 #define ASSIMP_LOG_WARN(...) \
 	Assimp::DefaultLogger::get()->warn(__VA_ARGS__)
 
@@ -299,5 +301,16 @@ inline Logger::LogSeverity Logger::getLogSeverity() const {
 
 #define ASSIMP_LOG_INFO(...) \
 	Assimp::DefaultLogger::get()->info(__VA_ARGS__)
+#endif
+
+#define ASSIMP_LOG_WARN(...)
+
+#define ASSIMP_LOG_ERROR(...)
+
+#define ASSIMP_LOG_DEBUG(...)
+
+#define ASSIMP_LOG_VERBOSE_DEBUG(...)
+
+#define ASSIMP_LOG_INFO(...)
 
 #endif // !! INCLUDED_AI_LOGGER_H

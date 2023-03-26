@@ -89,6 +89,7 @@ void BaseImporter::UpdateImporterScale(Importer *pImp) {
 // Imports the given file and returns the imported data.
 aiScene *BaseImporter::ReadFile(Importer *pImp, const std::string &pFile, IOSystem *pIOHandler) {
 
+    printf("BaseImporter::ReadFile\n");
     m_progress = pImp->GetProgressHandler();
     if (nullptr == m_progress) {
         return nullptr;
@@ -97,16 +98,20 @@ aiScene *BaseImporter::ReadFile(Importer *pImp, const std::string &pFile, IOSyst
     ai_assert(m_progress);
 
     // Gather configuration properties for this run
+    printf("BaseImporter::ReadFile setup properties\n");
     SetupProperties(pImp);
 
     // Construct a file system filter to improve our success ratio at reading external files
+    printf("BaseImporter::ReadFile FileSystemFilter\n");
     FileSystemFilter filter(pFile, pIOHandler);
 
     // create a scene object to hold the data
+    printf("BaseImporter::ReadFile new aiScene\n");
     std::unique_ptr<aiScene> sc(new aiScene());
 
     // dispatch importing
     try {
+        printf("BaseImporter::ReadFile InternReadFile\n");
         InternReadFile(pFile, sc.get(), &filter);
 
         // Calculate import scale hook - required because pImp not available anywhere else

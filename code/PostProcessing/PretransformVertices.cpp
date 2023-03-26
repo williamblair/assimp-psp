@@ -422,9 +422,9 @@ void PretransformVertices::Execute(aiScene *pScene) {
 	if (!pScene->mNumMeshes)
 		return;
 
-	const unsigned int iOldMeshes = pScene->mNumMeshes;
-	const unsigned int iOldAnimationChannels = pScene->mNumAnimations;
-	const unsigned int iOldNodes = CountNodes(pScene->mRootNode);
+	//const unsigned int iOldMeshes = pScene->mNumMeshes;
+	//const unsigned int iOldAnimationChannels = pScene->mNumAnimations;
+	//const unsigned int iOldNodes = CountNodes(pScene->mRootNode);
 
 	if (configTransform) {
 		pScene->mRootNode->mTransformation = configTransformation * pScene->mRootNode->mTransformation;

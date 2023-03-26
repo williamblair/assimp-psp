@@ -123,7 +123,7 @@ void LimitBoneWeightsProcess::ProcessMesh(aiMesh* pMesh)
     if (maxVertexWeights <= mMaxWeights)
         return;
 
-    unsigned int removed = 0, old_bones = pMesh->mNumBones;
+    unsigned int removed = 0/*, old_bones = pMesh->mNumBones*/;
 
     // now cut the weight count if it exceeds the maximum
     for (WeightsPerVertex::iterator vit = vertexWeights.begin(); vit != vertexWeights.end(); ++vit)

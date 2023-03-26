@@ -272,6 +272,7 @@ void X3DImporter::readElevationGrid(XmlNode &node) {
     int32_t zDimension = 0;
     float zSpacing = 1;
     X3DNodeElementBase *ne(nullptr);
+    int tmp = 0;
 
     MACRO_ATTRREAD_CHECKUSEDEF_RET(node, def, use);
     XmlParser::getBoolAttribute(node, "solid", solid);
@@ -280,9 +281,9 @@ void X3DImporter::readElevationGrid(XmlNode &node) {
     XmlParser::getBoolAttribute(node, "normalPerVertex", normalPerVertex);
     XmlParser::getFloatAttribute(node, "creaseAngle", creaseAngle);
     X3DXmlHelper::getFloatArrayAttribute(node, "height", height);
-    XmlParser::getIntAttribute(node, "xDimension", xDimension);
+    XmlParser::getIntAttribute(node, "xDimension", tmp); xDimension = tmp;
     XmlParser::getFloatAttribute(node, "xSpacing", xSpacing);
-    XmlParser::getIntAttribute(node, "zDimension", zDimension);
+    XmlParser::getIntAttribute(node, "zDimension", tmp); zDimension = tmp;
     XmlParser::getFloatAttribute(node, "zSpacing", zSpacing);
 
     // if "USE" defined then find already defined element.

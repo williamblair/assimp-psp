@@ -945,7 +945,7 @@ void HL1MDLLoader::read_animations() {
 
     scene_->mNumAnimations = 0;
 
-    int highest_num_blend_animations = SequenceBlendMode_HL1::NoBlend;
+    int32_t highest_num_blend_animations = SequenceBlendMode_HL1::NoBlend;
 
     // Count the total number of animations.
     for (int i = 0; i < header_->numseq; ++i, ++pseqdesc) {
@@ -1082,7 +1082,7 @@ void HL1MDLLoader::read_sequence_infos() {
 
     std::vector<aiNode *> sequence_info_node_children;
 
-    int animation_index = 0;
+    int32_t animation_index = 0;
     for (int i = 0; i < header_->numseq; ++i, ++pseqdesc) {
         // Clear the list of children for the upcoming sequence info node.
         sequence_info_node_children.clear();
@@ -1183,8 +1183,8 @@ void HL1MDLLoader::read_sequence_transitions() {
 
     uint8_t *ptransitions = ((uint8_t *)header_ + header_->transitionindex);
     aiMetadata *md = transition_graph_node->mMetaData = aiMetadata::Alloc(header_->numtransitions * header_->numtransitions);
-    for (unsigned int i = 0; i < md->mNumProperties; ++i)
-        md->Set(i, std::to_string(i), static_cast<int>(ptransitions[i]));
+    for (unsigned i = 0; i < md->mNumProperties; ++i)
+        md->Set(i, std::to_string(i), static_cast<int32_t>(ptransitions[i]));
 }
 
 void HL1MDLLoader::read_attachments() {
@@ -1271,16 +1271,16 @@ void HL1MDLLoader::read_global_info() {
     rootnode_children_.push_back(global_info_node);
 
     aiMetadata *md = global_info_node->mMetaData = aiMetadata::Alloc(import_settings_.read_misc_global_info ? 16 : 11);
-    md->Set(0, "Version", AI_MDL_HL1_VERSION);
+    md->Set(0, "Version", int32_t(AI_MDL_HL1_VERSION));
     md->Set(1, "NumBodyparts", header_->numbodyparts);
-    md->Set(2, "NumModels", total_models_);
+    md->Set(2, "NumModels", int32_t(total_models_));
     md->Set(3, "NumBones", header_->numbones);
     md->Set(4, "NumAttachments", import_settings_.read_attachments ? header_->numattachments : 0);
     md->Set(5, "NumSkinFamilies", texture_header_->numskinfamilies);
     md->Set(6, "NumHitboxes", import_settings_.read_hitboxes ? header_->numhitboxes : 0);
     md->Set(7, "NumBoneControllers", import_settings_.read_bone_controllers ? header_->numbonecontrollers : 0);
     md->Set(8, "NumSequences", import_settings_.read_animations ? header_->numseq : 0);
-    md->Set(9, "NumBlendControllers", import_settings_.read_blend_controllers ? num_blend_controllers_ : 0);
+    md->Set(9, "NumBlendControllers", import_settings_.read_blend_controllers ? int32_t(num_blend_controllers_) : int32_t(0));
     md->Set(10, "NumTransitionNodes", import_settings_.read_sequence_transitions ? header_->numtransitions : 0);
 
     if (import_settings_.read_misc_global_info) {

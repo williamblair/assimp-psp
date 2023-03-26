@@ -20,6 +20,21 @@ A library to import and export various 3d-model-formats including scene-post-pro
 APIs are provided for C and C++. There are various bindings to other languages (C#, Java, Python, Delphi, D). Assimp also runs on Android and iOS.
 Additionally, assimp features various __mesh post processing tools__: normals and tangent space generation, triangulation, vertex cache locality optimization, removal of degenerate primitives and duplicate vertices, sorting by primitive type, merging of redundant materials and many more.
 
+### PSP Port ###
+
+The following formats have been tested so far:
+
+* glTF
+* IQM
+
+Built using [https://pspdev.github.io/](PSPDEV). Tested on Ubuntu 22.04.2 LTS. Run the following:
+
+```bash
+bash pspinstall.bash
+```
+
+Which will build and install assimp to $PSPDEV/psp.
+
 ### Latest Doc's ###
 Please check the latest documents at [Asset-Importer-Lib-Doc](https://assimp-docs.readthedocs.io/en/latest/). 
 

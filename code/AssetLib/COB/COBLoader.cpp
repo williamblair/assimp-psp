@@ -580,8 +580,8 @@ void COBImporter::ReadUnit_Ascii(Scene &out, LineSplitter &splitter, const Chunk
         if (nd->id == nfo.parent_id) {
             const unsigned int t = strtoul10(splitter[1]);
 
-            nd->unit_scale = t >= sizeof(units) / sizeof(units[0]) ? (
-                                                                             ASSIMP_LOG_WARN(t, " is not a valid value for `Units` attribute in `Unit chunk` ", nfo.id), 1.f) :
+            nd->unit_scale = t >= sizeof(units) / sizeof(units[0]) ? /*(
+                                                                             ASSIMP_LOG_WARN(t, " is not a valid value for `Units` attribute in `Unit chunk` ", nfo.id), 1.f)*/1.0f :
                                                                      units[t];
             return;
         }
@@ -1162,8 +1162,8 @@ void COBImporter::ReadUnit_Binary(COB::Scene &out, StreamReaderLE &reader, const
     for (std::shared_ptr<Node> &nd : out.nodes) {
         if (nd->id == nfo.parent_id) {
             const unsigned int t = reader.GetI2();
-            nd->unit_scale = t >= sizeof(units) / sizeof(units[0]) ? (
-                                                                             ASSIMP_LOG_WARN(t, " is not a valid value for `Units` attribute in `Unit chunk` ", nfo.id), 1.f) :
+            nd->unit_scale = t >= sizeof(units) / sizeof(units[0]) ? /*(
+                                                                             ASSIMP_LOG_WARN(t, " is not a valid value for `Units` attribute in `Unit chunk` ", nfo.id), 1.f)*/1.0f :
                                                                      units[t];
 
             return;

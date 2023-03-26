@@ -130,7 +130,7 @@ voidpf IOSystem2Unzip::opendisk(voidpf opaque, voidpf stream, uint32_t number_di
     {
         if (disk_filename[i] != '.')
             continue;
-        snprintf(&disk_filename[i], io_stream->m_Filename.length() - size_t(i), ".z%02u", number_disk + 1);
+        snprintf(&disk_filename[i], io_stream->m_Filename.length() - size_t(i), ".z%02lu", number_disk + 1);
         break;
     }
 

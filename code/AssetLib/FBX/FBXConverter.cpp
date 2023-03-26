@@ -875,7 +875,7 @@ void FBXConverter::SetupNodeMetadata(const Model &model, aiNode &nd) {
         if (const TypedProperty<bool> *interpretedBool = prop.second->As<TypedProperty<bool>>()) {
             data->Set(index++, prop.first, interpretedBool->Value());
         } else if (const TypedProperty<int> *interpretedInt = prop.second->As<TypedProperty<int>>()) {
-            data->Set(index++, prop.first, interpretedInt->Value());
+            data->Set(index++, prop.first, int32_t(interpretedInt->Value()));
         } else if (const TypedProperty<uint64_t> *interpretedUint64 = prop.second->As<TypedProperty<uint64_t>>()) {
             data->Set(index++, prop.first, interpretedUint64->Value());
         } else if (const TypedProperty<float> *interpretedFloat = prop.second->As<TypedProperty<float>>()) {
@@ -3610,19 +3610,19 @@ void FBXConverter::ConvertGlobalSettings() {
     const bool hasGenerator = !doc.Creator().empty();
 
     mSceneOut->mMetaData = aiMetadata::Alloc(16 + (hasGenerator ? 1 : 0));
-    mSceneOut->mMetaData->Set(0, "UpAxis", doc.GlobalSettings().UpAxis());
-    mSceneOut->mMetaData->Set(1, "UpAxisSign", doc.GlobalSettings().UpAxisSign());
-    mSceneOut->mMetaData->Set(2, "FrontAxis", doc.GlobalSettings().FrontAxis());
-    mSceneOut->mMetaData->Set(3, "FrontAxisSign", doc.GlobalSettings().FrontAxisSign());
-    mSceneOut->mMetaData->Set(4, "CoordAxis", doc.GlobalSettings().CoordAxis());
-    mSceneOut->mMetaData->Set(5, "CoordAxisSign", doc.GlobalSettings().CoordAxisSign());
-    mSceneOut->mMetaData->Set(6, "OriginalUpAxis", doc.GlobalSettings().OriginalUpAxis());
-    mSceneOut->mMetaData->Set(7, "OriginalUpAxisSign", doc.GlobalSettings().OriginalUpAxisSign());
+    mSceneOut->mMetaData->Set(0, "UpAxis", int32_t(doc.GlobalSettings().UpAxis()));
+    mSceneOut->mMetaData->Set(1, "UpAxisSign", int32_t(doc.GlobalSettings().UpAxisSign()));
+    mSceneOut->mMetaData->Set(2, "FrontAxis", int32_t(doc.GlobalSettings().FrontAxis()));
+    mSceneOut->mMetaData->Set(3, "FrontAxisSign", int32_t(doc.GlobalSettings().FrontAxisSign()));
+    mSceneOut->mMetaData->Set(4, "CoordAxis", int32_t(doc.GlobalSettings().CoordAxis()));
+    mSceneOut->mMetaData->Set(5, "CoordAxisSign", int32_t(doc.GlobalSettings().CoordAxisSign()));
+    mSceneOut->mMetaData->Set(6, "OriginalUpAxis", int32_t(doc.GlobalSettings().OriginalUpAxis()));
+    mSceneOut->mMetaData->Set(7, "OriginalUpAxisSign", int32_t(doc.GlobalSettings().OriginalUpAxisSign()));
     //const double unitScaleFactor = (double)doc.GlobalSettings().UnitScaleFactor();
     mSceneOut->mMetaData->Set(8, "UnitScaleFactor", doc.GlobalSettings().UnitScaleFactor());
     mSceneOut->mMetaData->Set(9, "OriginalUnitScaleFactor", doc.GlobalSettings().OriginalUnitScaleFactor());
     mSceneOut->mMetaData->Set(10, "AmbientColor", doc.GlobalSettings().AmbientColor());
-    mSceneOut->mMetaData->Set(11, "FrameRate", (int)doc.GlobalSettings().TimeMode());
+    mSceneOut->mMetaData->Set(11, "FrameRate", (int32_t)doc.GlobalSettings().TimeMode());
     mSceneOut->mMetaData->Set(12, "TimeSpanStart", doc.GlobalSettings().TimeSpanStart());
     mSceneOut->mMetaData->Set(13, "TimeSpanStop", doc.GlobalSettings().TimeSpanStop());
     mSceneOut->mMetaData->Set(14, "CustomFrameRate", doc.GlobalSettings().CustomFrameRate());

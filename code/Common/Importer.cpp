@@ -519,12 +519,14 @@ const aiScene* Importer::ReadFileFromMemory( const void* pBuffer,
 // ------------------------------------------------------------------------------------------------
 void WriteLogOpening(const std::string& file) {
 
+    printf("BJ Write log opening\n");
     ASSIMP_LOG_INFO("Load ", file);
 
     // print a full version dump. This is nice because we don't
     // need to ask the authors of incoming bug reports for
     // the library version they're using - a log dump is
     // sufficient.
+    printf("BJ get compile flags\n");
     const unsigned int flags = aiGetCompileFlags();
     std::stringstream stream;
     stream << "Assimp " << aiGetVersionMajor() << "." << aiGetVersionMinor() << "." << aiGetVersionRevision() << " "
@@ -573,12 +575,15 @@ void WriteLogOpening(const std::string& file) {
            << (flags & ASSIMP_CFLAGS_SINGLETHREADED ? " singlethreaded" : "")
            << (flags & ASSIMP_CFLAGS_DOUBLE_SUPPORT ? " double : " : "single : ");
 
+    printf("BJ assimp log debug\n");
     ASSIMP_LOG_DEBUG(stream.str());
+    printf("BJ Write log opening exit\n");
 }
 
 // ------------------------------------------------------------------------------------------------
 // Reads the given file and returns its contents if successful.
 const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
+    printf("Importer::ReadFile\n");
     ai_assert(nullptr != pimpl);
 
     ASSIMP_BEGIN_EXCEPTION_REGION();
@@ -590,6 +595,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
     // ImportErrorException's are throw by ourselves and caught elsewhere.
     //-----------------------------------------------------------------------
 
+    printf("Importer::ReadFile WriteLogOpening\n");
     WriteLogOpening(pFile);
 
 #ifdef ASSIMP_CATCH_GLOBAL_EXCEPTIONS
@@ -598,6 +604,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
     {
         // Check whether this Importer instance has already loaded
         // a scene. In this case we need to delete the old one
+        printf("Importer::ReadFile if pimpl mScene\n");
         if (pimpl->mScene)  {
 
             ASSIMP_LOG_DEBUG("(Deleting previous scene)");
@@ -605,6 +612,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
         }
 
         // First check if the file is accessible at all
+        printf("Importer::ReadFile if IOHandler exists\n");
         if( !pimpl->mIOHandler->Exists( pFile)) {
 
             pimpl->mErrorString = "Unable to open file \"" + pFile + "\".";
@@ -624,6 +632,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
             BaseImporter * importer;
             unsigned int   index;
         };
+        printf("Importer::ReadFile std::vector possible Importers\n");
         std::vector<ImporterAndIndex> possibleImporters;
         for (unsigned int a = 0; a < pimpl->mImporter.size(); a++)  {
 
@@ -652,6 +661,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
         }
 
         // If just one importer supports this extension, pick it and close the case.
+        printf("Importer::ReadFile base importer\n");
         BaseImporter* imp = nullptr;
         if (1 == possibleImporters.size()) {
             imp = possibleImporters[0].importer;
@@ -674,6 +684,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
 
         }
 
+        printf("Importer::ReadFile if !imp\n");
         if (!imp)   {
             // not so bad yet ... try format auto detection.
             ASSIMP_LOG_INFO("File extension not known, trying signature-based detection");
@@ -693,6 +704,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
         }
 
         // Get file size for progress handler
+        printf("Importer::ReadFile IOHandler open\n");
         IOStream * fileIO = pimpl->mIOHandler->Open( pFile );
         uint32_t fileSize = 0;
         if (fileIO)
@@ -714,6 +726,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
             profiler->BeginRegion("import");
         }
 
+        printf("Importer::ReadFile imp->ReadFile\n");
         pimpl->mScene = imp->ReadFile( this, pFile, pimpl->mIOHandler);
         pimpl->mProgressHandler->UpdateFileRead( fileSize, fileSize );
 
@@ -724,6 +737,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
         SetPropertyString("sourceFilePath", pFile);
 
         // If successful, apply all active post processing steps to the imported data
+        printf("Importer::ReadFile Scene post processing\n");
         if( pimpl->mScene)  {
             if (!pimpl->mScene->mMetaData || !pimpl->mScene->mMetaData->HasKey(AI_METADATA_SOURCE_FORMAT)) {
                 if (!pimpl->mScene->mMetaData) {
@@ -788,6 +802,7 @@ const aiScene* Importer::ReadFile( const char* _pFile, unsigned int pFlags) {
     // either successful or failure - the pointer expresses it anyways
     ASSIMP_END_EXCEPTION_REGION_WITH_ERROR_STRING(const aiScene*, pimpl->mErrorString, pimpl->mException);
 
+    printf("Importer::ReadFile return\n");
     return pimpl->mScene;
 }
 

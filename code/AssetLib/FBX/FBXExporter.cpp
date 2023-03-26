@@ -404,7 +404,7 @@ void FBXExporter::WriteHeaderExtension ()
 
 void WritePropInt(const aiScene* scene, FBX::Node& p, const std::string& key, int defaultValue)
 {
-    int value;
+    int32_t value;
     if (scene->mMetaData != nullptr && scene->mMetaData->Get(key, value)) {
         p.AddP70int(key, value);
     } else {
@@ -430,7 +430,7 @@ void WritePropDouble(const aiScene* scene, FBX::Node& p, const std::string& key,
 
 void WritePropEnum(const aiScene* scene, FBX::Node& p, const std::string& key, int defaultValue)
 {
-    int value;
+    int32_t value;
     if (scene->mMetaData != nullptr && scene->mMetaData->Get(key, value)) {
         p.AddP70enum(key, value);
     } else {
@@ -1228,7 +1228,7 @@ void FBXExporter::WriteObjects ()
                 "Version", int32_t(101), outstream, binary, indent
             );
             char layerName[8];
-            sprintf(layerName, "COLOR_%d", colorChannelIndex);
+            sprintf(layerName, "COLOR_%ld", colorChannelIndex);
             FBX::Node::WritePropertyNode(
                 "Name", (const char*)layerName, outstream, binary, indent
             );

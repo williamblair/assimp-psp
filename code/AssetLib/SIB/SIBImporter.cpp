@@ -164,12 +164,12 @@ static aiColor3D ReadColor(StreamReaderLE *stream) {
 }
 
 static void UnknownChunk(StreamReaderLE * /*stream*/, const SIBChunk &chunk) {
-    char temp[4] = {
+    /*char temp[4] = {
         static_cast<char>((chunk.Tag >> 24) & 0xff),
         static_cast<char>((chunk.Tag >> 16) & 0xff),
         static_cast<char>((chunk.Tag >> 8) & 0xff),
         static_cast<char>(chunk.Tag & 0xff)
-    };
+    };*/
 
     ASSIMP_LOG_WARN("SIB: Skipping unknown '", ai_str_toprintable(temp, 4), "' chunk.");
 }

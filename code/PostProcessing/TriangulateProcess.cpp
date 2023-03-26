@@ -230,7 +230,7 @@ bool TriangulateProcess::TriangulateMesh( aiMesh* pMesh)
         }
         else {
             numOut += face.mNumIndices-2;
-            max_out = std::max(max_out,face.mNumIndices);
+            max_out = std::max(max_out,uint32_t(face.mNumIndices));
         }
     }
 

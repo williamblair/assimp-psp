@@ -147,9 +147,10 @@ void X3DImporter::endReadStaticGroup() {
 void X3DImporter::startReadSwitch(XmlNode &node) {
     std::string def, use;
     int32_t whichChoice = -1;
+    int tmp = -1;
 
     MACRO_ATTRREAD_CHECKUSEDEF_RET(node, def, use);
-    XmlParser::getIntAttribute(node, "whichChoice", whichChoice);
+    XmlParser::getIntAttribute(node, "whichChoice", tmp); whichChoice = tmp;
 
     // if "USE" defined then find already defined element.
     if (!use.empty()) {

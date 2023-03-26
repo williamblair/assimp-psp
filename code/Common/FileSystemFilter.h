@@ -68,6 +68,9 @@ public:
     : mWrapped  (old)
     , mSrc_file(file)
     , mSep(mWrapped->getOsSeparator()) {
+
+        printf("FileSystemFilter ctor\n");
+
         ai_assert(nullptr != mWrapped);
 
         // Determine base directory
@@ -89,7 +92,9 @@ public:
             mBase += getOsSeparator();
         }
 
-        DefaultLogger::get()->info("Import root directory is \'", mBase, "\'");
+        //printf("FileSystemFilter DefaultLogger::get info: 0x%X\n",
+        //    (unsigned int)(void*)DefaultLogger::get());
+        //DefaultLogger::get()->info("Import root directory is \'", mBase, "\'");
     }
 
     /** Destructor. */
